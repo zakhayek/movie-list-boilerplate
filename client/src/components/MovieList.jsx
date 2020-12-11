@@ -3,7 +3,10 @@ import React from 'react';
 const MovieList = (props) => (
   <div>
     {props.movies.map((movie, idx) => (
-      <div style={{display: movie.display}} key={idx}>{movie.title}</div>
+      <div className='movie' style={{display: movie.display}} key={idx}>
+        {movie.title}
+        <button>Watched</button>
+        </div>
     ))}
   </div>
 );

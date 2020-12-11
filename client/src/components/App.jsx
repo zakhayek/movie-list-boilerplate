@@ -6,30 +6,19 @@ import AddMovie from './AddMovie.jsx';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {movies: [
-      {
-        title: 'Mean Girls',
-        display: 'block'
-      },
-      {
-        title: 'Hackers',
-        display: 'block'
-      },
-      {
-        title: 'The Grey',
-        display: 'block'
-      },
-      {
-        title: 'Sunshine',
-        display: 'block'
-      },
-      {
-        title: 'Ex Machina',
-        display: 'block'
-      }
-    ]};
+    this.state = {movies: []};
     this.searchMovie = this.searchMovie.bind(this);
     this.resetList = this.resetList.bind(this);
+    this.addMovie = this.addMovie.bind(this);
+  }
+
+  addMovie(movie) {
+    const movies = [...this.state.movies];
+    movies.push({
+      title: movie,
+      display: 'block'
+    });
+    this.setState({movies});
   }
 
   searchMovie(movie) {
@@ -43,9 +32,10 @@ class App extends React.Component {
         foundMovie = true;
       }
     }
-    this.setState(movies);
+    this.setState({movies});
     if (!foundMovie) {
       alert('No movie by that name found');
+      this.resetList();
     }
   }
 
@@ -54,13 +44,14 @@ class App extends React.Component {
     for (let i = 0; i < movies.length; i++) {
       movies[i].display = 'block';
     }
-    this.setState(movies);
+    this.setState({movies});
   }
 
   render() {
     return (
       <div>
-        <div>MovieList</div>
+        <div><h1>MovieList</h1></div>
+        <AddMovie addMovie={this.addMovie}/>
         <SearchBar searchMovie={this.searchMovie} resetList={this.resetList} movies={this.state.movies}/>
         <MovieList movies={this.state.movies}/>
       </div>

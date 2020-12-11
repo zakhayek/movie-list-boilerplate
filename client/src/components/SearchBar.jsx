@@ -8,6 +8,7 @@ class SearchBar extends React.Component {
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleReset = this.handleReset.bind(this);
   }
 
   handleChange(event) {
@@ -21,12 +22,19 @@ class SearchBar extends React.Component {
     document.getElementById('reset').style.display = 'inline';
   }
 
+  handleReset(event) {
+    event.preventDefault();
+    this.setState({search: ''})
+    this.props.resetList();
+    document.getElementById('reset').style.display = 'none';
+  }
+
   render(){
     return (
       <form>
         <input type='text' placeholder='Search...' value={this.state.search} onChange={this.handleChange}></input>
         <input type='submit' value='Go!' onClick={this.handleSubmit}></input>
-        <button id='reset' style={{display: 'none'}}onClick={this.props.resetList}>Reset</button>
+        <button id='reset' style={{display: 'none'}}onClick={this.handleReset}>Reset</button>
       </form>
     );
   }
